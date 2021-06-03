@@ -1,7 +1,6 @@
 {
-  "homepage": "https://georgeeejacob.github.io/georgeeejacob.portfolio",
-  "short_name": "George - Portfolio",
-  "name": "George - Portfolio",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
