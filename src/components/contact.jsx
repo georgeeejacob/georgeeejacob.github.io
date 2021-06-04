@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
 
 export default class Contact extends Component {
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      message: ''
+    }
+  }
+
   render() {
     return (
       <div>
@@ -38,32 +49,27 @@ export default class Contact extends Component {
           </div>
 
           <div class="col-lg-8 mt-5 mt-lg-0">
-
+          <form id="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
               <div class="form-row">
                 <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <input type="text" className="form-control" value={this.state.name} onChange={this.onNameChange.bind(this)} />
                   <div class="validate"></div>
                 </div>
                 <div class="col-md-6 form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                  <div class="validate"></div>
+                <input type="email" className="form-control" aria-describedby="emailHelp" value={this.state.email} onChange={this.onEmailChange.bind(this)} />                  <div class="validate"></div>
                 </div>
               </div>
+              
               <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                <div class="validate"></div>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                <div class="validate"></div>
+              <textarea className="form-control" rows="5" value={this.state.message} onChange={this.onMessageChange.bind(this)} />                <div class="validate"></div>
               </div>
               <div class="mb-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+                
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-
+              <div class="text-center">
+                <button type="submit" className="btn btn-primary">Submit</button>
+                </div>
+              </form>
           </div>
 
         </div>
@@ -73,4 +79,43 @@ export default class Contact extends Component {
       </div>
     )
   }
+  onNameChange(event) {
+    this.setState({name: event.target.value})
+  }
+
+  onEmailChange(event) {
+    this.setState({email: event.target.value})
+  }
+
+  onMessageChange(event) {
+    this.setState({message: event.target.value})
+  }
+
+  resetForm(){
+    this.setState({name: '', email: '', message: ''})
+  }
+
+  handleSubmit(e) {
+      e.preventDefault();
+      
+      fetch('http://localhost:3002/send', {
+        method: "POST",
+        body: JSON.stringify(this.state),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      }).then(
+      (response) => (response.json())
+        ).then((response)=> {
+      if (response.status === 'success') {
+        alert("Message Sent.");
+        this.resetForm()
+      } else if(response.status === 'fail') {
+        alert("Message failed to send.")
+      }
+    })
+  }
+
 }
+

@@ -14,7 +14,7 @@ export default class About extends Component {
 
         <div class="row">
           <div class="col-lg-4">
-            <img src="assets/img/img.jpg" class="img-fluid" alt=""></img>
+            <img src="assets/img/profile-img1.jpg" class="img-fluid" alt=""></img>
           </div>
           <div class="col-lg-8 pt-4 pt-lg-0 content">
             <h3> Web Developer.</h3>
