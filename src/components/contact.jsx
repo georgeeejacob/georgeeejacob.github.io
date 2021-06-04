@@ -39,7 +39,6 @@ export default class Contact extends Component {
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
               <div class="form-row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
@@ -64,7 +63,6 @@ export default class Contact extends Component {
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
               <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
 
           </div>
 
